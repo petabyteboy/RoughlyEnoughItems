@@ -85,7 +85,7 @@ public class GameModeFavoriteEntry extends FavoriteEntry {
                 fillGradient(matrices, bounds.getX(), bounds.getY(), bounds.getX() + 1, bounds.getMaxY(), color, color);
                 fillGradient(matrices, bounds.getMaxX() - 1, bounds.getY(), bounds.getMaxX(), bounds.getMaxY(), color, color);
                 if (bounds.width > 4 && bounds.height > 4) {
-                    if (gameMode == GameType.NOT_SET) {
+                    if (gameMode == GameType.DEFAULT_MODE) {
                         updateAnimator(delta);
                         notSetScissorArea.setBounds(bounds.x + 2, bounds.y + 2, bounds.width - 4, bounds.height - 4);
                         ScissorsHandler.INSTANCE.scissor(notSetScissorArea);
@@ -119,14 +119,14 @@ public class GameModeFavoriteEntry extends FavoriteEntry {
             private void renderGameModeText(PoseStack matrices, GameType type, int centerX, int centerY, int color) {
                 Component s = new TranslatableComponent("text.rei.short_gamemode." + type.getName());
                 Font font = Minecraft.getInstance().font;
-                font.draw(matrices, s, centerX - font.width(s) / 2 + (type == GameType.NOT_SET ? 0 : 0.5f), centerY - 3.5f, color);
+                font.draw(matrices, s, centerX - font.width(s) / 2 + (type == GameType.DEFAULT_MODE ? 0 : 0.5f), centerY - 3.5f, color);
             }
             
             @Override
             public @Nullable Tooltip getTooltip(Point mouse) {
-                if (gameMode == GameType.NOT_SET)
+                if (gameMode == GameType.DEFAULT_MODE)
                     return Tooltip.create(mouse, new TranslatableComponent("text.rei.gamemode_button.tooltip.all"));
-                return Tooltip.create(mouse, new TranslatableComponent("text.rei.gamemode_button.tooltip.entry", gameMode.getDisplayName().getString()));
+                return Tooltip.create(mouse, new TranslatableComponent("text.rei.gamemode_button.tooltip.entry", gameMode.getShortDisplayName().getString()));
             }
         };
     }
@@ -135,7 +135,7 @@ public class GameModeFavoriteEntry extends FavoriteEntry {
     public boolean doAction(int button) {
         if (button == 0) {
             GameType type = gameMode;
-            if (type == GameType.NOT_SET) {
+            if (type == GameType.DEFAULT_MODE) {
                 type = GameType.byId(Minecraft.getInstance().gameMode.getPlayerMode().getId() + 1 % 4);
             }
             Minecraft.getInstance().player.chat(ConfigObject.getInstance().getGamemodeCommand().replaceAll("\\{gamemode}", type.name().toLowerCase(Locale.ROOT)));
@@ -147,13 +147,13 @@ public class GameModeFavoriteEntry extends FavoriteEntry {
     
     @Override
     public @NotNull Optional<Supplier<Collection<@NotNull FavoriteMenuEntry>>> getMenuEntries() {
-        if (gameMode == GameType.NOT_SET)
+        if (gameMode == GameType.DEFAULT_MODE)
             return Optional.of(this::_getMenuEntries);
         return Optional.empty();
     }
     
     private Collection<FavoriteMenuEntry> _getMenuEntries() {
-        return CollectionUtils.filterAndMap(Arrays.asList(GameType.values()), mode -> mode != GameType.NOT_SET, GameModeMenuEntry::new);
+        return CollectionUtils.filterAndMap(Arrays.asList(GameType.values()), mode -> mode != GameType.DEFAULT_MODE, GameModeMenuEntry::new);
     }
     
     @Override
@@ -206,7 +206,7 @@ public class GameModeFavoriteEntry extends FavoriteEntry {
         private int textWidth = -69;
         
         public GameModeMenuEntry(GameType gameMode) {
-            this.text = gameMode.getDisplayName().getString();
+            this.text = gameMode.getShortDisplayName().getString();
             this.gameMode = gameMode;
         }
         

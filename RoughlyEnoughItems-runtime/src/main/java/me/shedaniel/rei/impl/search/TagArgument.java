@@ -24,9 +24,11 @@
 package me.shedaniel.rei.impl.search;
 
 import me.shedaniel.rei.api.EntryStack;
+import me.shedaniel.rei.api.favorites.FavoriteEntryType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
@@ -67,10 +69,10 @@ public final class TagArgument extends Argument<Unit, String[]> {
         if (data.getValue() == null) {
             Collection<ResourceLocation> tags = Collections.emptyList();
             if (stack.getType() == EntryStack.Type.ITEM) {
-                tags = minecraft.getConnection().getTags().getItems().getMatchingTags(stack.getItem());
+                tags = minecraft.getConnection().getTags().getOrEmpty(Registry.ITEM_REGISTRY).getMatchingTags(stack.getItem());
                 
             } else if (stack.getType() == EntryStack.Type.FLUID) {
-                tags = minecraft.getConnection().getTags().getFluids().getMatchingTags(stack.getFluid());
+                tags = minecraft.getConnection().getTags().getOrEmpty(Registry.FLUID_REGISTRY).getMatchingTags(stack.getFluid());
             }
             
             if (tags.isEmpty()) {

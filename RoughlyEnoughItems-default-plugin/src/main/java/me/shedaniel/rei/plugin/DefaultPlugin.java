@@ -385,19 +385,19 @@ public class DefaultPlugin implements REIPluginV0, BuiltinPlugin {
                 recipeHelper.registerWorkingStations(PATHING, EntryStack.create(item));
             }
         });
-        Tag<Item> axesTag = Minecraft.getInstance().getConnection().getTags().getItems().getTag(new ResourceLocation("c", "axes"));
+        Tag<Item> axesTag = Minecraft.getInstance().getConnection().getTags().getOrEmpty(Registry.ITEM_REGISTRY).getTag(new ResourceLocation("c", "axes"));
         if (axesTag != null) {
             for (Item item : axesTag.getValues()) {
                 if (axes.add(item)) recipeHelper.registerWorkingStations(STRIPPING, EntryStack.create(item));
             }
         }
-        Tag<Item> hoesTag = Minecraft.getInstance().getConnection().getTags().getItems().getTag(new ResourceLocation("c", "hoes"));
+        Tag<Item> hoesTag = Minecraft.getInstance().getConnection().getTags().getOrEmpty(Registry.ITEM_REGISTRY).getTag(new ResourceLocation("c", "hoes"));
         if (hoesTag != null) {
             for (Item item : hoesTag.getValues()) {
                 if (hoes.add(item)) recipeHelper.registerWorkingStations(TILLING, EntryStack.create(item));
             }
         }
-        Tag<Item> shovelsTag = Minecraft.getInstance().getConnection().getTags().getItems().getTag(new ResourceLocation("c", "shovels"));
+        Tag<Item> shovelsTag = Minecraft.getInstance().getConnection().getTags().getOrEmpty(Registry.ITEM_REGISTRY).getTag(new ResourceLocation("c", "shovels"));
         if (shovelsTag != null) {
             for (Item item : shovelsTag.getValues()) {
                 if (shovels.add(item)) recipeHelper.registerWorkingStations(PATHING, EntryStack.create(item));

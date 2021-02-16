@@ -364,8 +364,8 @@ public class EntryListWidget extends WidgetWithBounds {
             matrices.popPose();
         }
         
-        if (containsMouse(mouseX, mouseY) && ClientHelper.getInstance().isCheating() && !minecraft.player.inventory.getCarried().isEmpty() && RoughlyEnoughItemsCore.canDeleteItems()) {
-            EntryStack stack = EntryStack.create(minecraft.player.inventory.getCarried().copy());
+        if (containsMouse(mouseX, mouseY) && ClientHelper.getInstance().isCheating() && !minecraft.player.getInventory().getCarried().isEmpty() && RoughlyEnoughItemsCore.canDeleteItems()) {
+            EntryStack stack = EntryStack.create(minecraft.player.getInventory().getCarried().copy());
             if (stack.getType() == EntryStack.Type.FLUID) {
                 Item bucketItem = stack.getFluid().getBucket();
                 if (bucketItem != null) {
@@ -581,8 +581,8 @@ public class EntryListWidget extends WidgetWithBounds {
         if (containsMouse(mouseX, mouseY)) {
             LocalPlayer player = minecraft.player;
             cancelDelete:
-            if (ClientHelper.getInstance().isCheating() && player != null && player.inventory != null && !player.inventory.getCarried().isEmpty() && RoughlyEnoughItemsCore.canDeleteItems()) {
-                EntryStack stack = EntryStack.create(minecraft.player.inventory.getCarried().copy());
+            if (ClientHelper.getInstance().isCheating() && player != null && player.getInventory() != null && !player.getInventory().getCarried().isEmpty() && RoughlyEnoughItemsCore.canDeleteItems()) {
+                EntryStack stack = EntryStack.create(minecraft.player.getInventory().getCarried().copy());
                 if (stack.getType() == EntryStack.Type.FLUID) {
                     Item bucketItem = stack.getFluid().getBucket();
                     if (bucketItem != null) {

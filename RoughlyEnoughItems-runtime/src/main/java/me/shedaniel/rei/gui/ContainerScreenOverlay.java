@@ -275,7 +275,7 @@ public class ContainerScreenOverlay extends WidgetWithBounds implements REIOverl
                             if (isOpened != inBounds) {
                                 if (inBounds) {
                                     Menu menu = new Menu(new Point(button.getBounds().x, button.getBounds().getMaxY()),
-                                            CollectionUtils.filterAndMap(Arrays.asList(GameType.values()), mode -> mode != GameType.NOT_SET, GameModeMenuEntry::new));
+                                            CollectionUtils.filterAndMap(Arrays.asList(GameType.values()), mode -> mode != GameType.DEFAULT_MODE, GameModeMenuEntry::new));
                                     if (ConfigObject.getInstance().isLeftHandSidePanel())
                                         menu.menuStartPoint.x -= menu.getBounds().width - button.getBounds().width;
                                     openMenu(Menu.GAME_TYPE, menu, point -> button.isFocused() && button.containsMouse(PointHelper.ofMouse()));
@@ -421,7 +421,7 @@ public class ContainerScreenOverlay extends WidgetWithBounds implements REIOverl
                 next = 3;
             return GameType.byId(next);
         } catch (Exception e) {
-            return GameType.NOT_SET;
+            return GameType.DEFAULT_MODE;
         }
     }
     
