@@ -14,8 +14,7 @@
   },
   "depends": {
     "fabricloader": "*",
-    "cloth-client-events-v0": ">=1.5.47",
-    "minecraft": "~1.16.2-rc.1"
+    "cloth-client-events-v0": ">=1.5.47"
   },
   "license": "MIT",
   "icon": "icon.png"
